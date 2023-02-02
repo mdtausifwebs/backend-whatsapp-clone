@@ -5,7 +5,7 @@ const grid = require("gridfs-stream");
 const mongoose = require("mongoose");
 const conn = mongoose.connection;
 let gridFsBucket,gfs;
-const url = "http://localhost:5000";
+const url = "http://localhost:4000";
 conn.once("open", () => {
   gridFsBucket = new mongoose.mongo.GridFSBucket(conn.db, {
     bucketName: "fs",
@@ -141,6 +141,7 @@ const getFileImageUrl = async (req, res) => {
     const file = await gfs.files.findOne({ filename: req.params.filename });
     const readStream = gridFsBucket.openDownloadStream(file._id);
     readStream.pipe(res);
+    // console.log(readStream)
   } catch (err) {
     return res.status(400).json({
       success: false,

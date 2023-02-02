@@ -12,3 +12,4 @@ const db = () => {
 };
 mongoose.set('strictQuery', false);
 module.exports = db;
+
